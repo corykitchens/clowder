@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import index from './index.css';
 import Title from './Title';
-import SearchBox from './SearchBox';
-import CatFacts from './CatFacts';
+import CatFactsContainer from './CatFactsContainer';
+
 
 class App extends Component {
   render() {
@@ -12,9 +12,7 @@ class App extends Component {
           <div className="columns">
             <div className="column">
               <Title text="Cat Facts"/>
-              <SearchBox />
-              <Title text="Cats" />
-              <CatFacts />
+              <CatFactsContainer />
             </div>
           </div>
         </div>
