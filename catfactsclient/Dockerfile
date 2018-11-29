@@ -1,16 +1,15 @@
-FROM node:9.6.1
+FROM node:latest
 
 RUN mkdir /usr/src/app
 WORKDIR /usr/src/app
 
 
-COPY . /usr/src/app/
-# install and cache app dependencies
-RUN npm install --silent
-RUN npm install react-scripts@1.1.1 -g --silent
+COPY build /usr/src/app/build
+COPY package.json /usr/src/app/package.json
 
-# add `/usr/src/app/node_modules/.bin` to $PATH
+RUN npm install
+
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
 # start app
-CMD ["npm", "start"]
+CMD ["npm", "run", "serve"]

@@ -1,0 +1,64 @@
+{
+  "requiresCompatibilities": [
+    "EC2"
+  ],
+  "containerDefinitions": [
+    {
+      "name": "catfactsproxy",
+      "image": "corykitchens/catfactsproxy:latest",
+      "memory": 256,
+      "cpu": 256,
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "links": ["catfactsapi", "catfactsclient"],
+      "logConfiguration": {
+          "logDriver": "awslogs",
+          "options": {
+              "awslogs-group": "/ecs/catfactsproxy",
+              "awslogs-region": "us-west-2",
+              "awslogs-stream-prefix": "catfactsproxy"
+          }
+      }
+    },
+    {
+      "name": "catfactsapi",
+      "image": "corykitchens/catfactsapi:latest",
+      "memory": 256,
+      "cpu": 256,
+      "essential": true,
+      "logConfiguration": {
+         "logDriver": "awslogs",
+         "options": {
+            "awslogs-group": "/ecs/catfactsapi",
+            "awslogs-region": "us-west-2",
+            "awslogs-stream-prefix": "catfactsapi"
+         }
+      }
+    },
+    {
+      "name": "catfactsclient",
+      "image": "corykitchens/catfactsclient:latest",
+      "memory": 512,
+      "cpu": 512,
+      "essential": true,
+      "logConfiguration": {
+         "logDriver": "awslogs",
+         "options": {
+            "awslogs-group": "/ecs/catfactsclient",
+            "awslogs-region": "us-west-2",
+            "awslogs-stream-prefix": "catfactsclient"
+         }
+      }
+    }
+  ],
+  "volumes": [],
+  "networkMode": "bridge",
+  "placementConstraints": [],
+  "family": "catfacts"
+}
