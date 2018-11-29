@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  catfactsproxy:
+    depends_on:
+      - catfactsapi
+      - catfactsclient
+    build:
+      context: ./catfactsproxy
+    ports:
+      - "8080:80"
+  catfactsapi:
+    build:
+      context: ./catfactsapi
+    ports:
+      - "5000:5000"
+  catfactsclient:
+    build:
+      context: ./catfactsclient
+    ports:
+      - "3000:3000"
